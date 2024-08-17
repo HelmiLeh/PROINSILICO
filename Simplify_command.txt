@@ -9,8 +9,7 @@ gmx trjconv -f step5_1.xtc -s step5_1.tpr -o md_center.xtc -n index2.ndx -pbc no
 17
 0
 
-gmx trjconv -f md_center.xtc -s step5_1.tpr -n index2.ndx -o md_fit.xtc -center -fit
-rot+trans
+gmx trjconv -f md_center.xtc -s step5_1.tpr -n index2.ndx -o md_fit.xtc -center -fit rot+trans
 17
 17
 17
