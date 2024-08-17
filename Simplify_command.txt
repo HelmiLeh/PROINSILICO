@@ -33,7 +33,7 @@ gmx rms -f md_fit.xtc -s step5_1.tpr -o rmsd_backbone.xvg -tu ns
 4
 
 gmx gyrate -f md_fit.xtc -s step5_1.tpr -o gyrate_backbone.xvg
-
+4
 xmgrace rmsd_backbone.xvg
 
 xmgrace gyrate_backbone.xvg
