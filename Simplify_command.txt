@@ -1,0 +1,83 @@
+#Additional to check the copy of trajectory
+gmx check -f step5_1.xtc
+
+gmx make_ndx -f step5_1.gro -o index2.ndx
+1|13
+q
+
+gmx trjconv -f step5_1.xtc -s step5_1.tpr -o md_center.xtc -n index2.ndx -pbc nojump -center -ur compact
+17
+0
+
+gmx trjconv -f md_center.xtc -s step5_1.tpr -n index2.ndx -o md_fit.xtc -center -fit
+rot+trans
+17
+17
+17
+
+gmx rms -f md_fit.xtc -s step5_1.tpr -n index2.ndx -o rmsd_evaluate.xvg -tu ns
+17
+17
+
+xmgrace rmsd_evaluate.xvg
+
+vmd step5_1.gro md_center.xtc
+
+gmx trjconv -f step5_1.xtc -s step5_1.tpr -o md_nowater.pdb -n index2.ndx -center -dump 0
+17
+17
+
+vmd md_nowater.pdb md_fit.xtc
+
+gmx rms -f md_fit.xtc -s step5_1.tpr -o rmsd_backbone.xvg -tu ns
+4
+4
+
+gmx gyrate -f md_fit.xtc -s step5_1.tpr -o gyrate_backbone.xvg
+
+xmgrace rmsd_backbone.xvg
+
+xmgrace gyrate_backbone.xvg
+
+gmx rmsf -f md_fit.xtc -s step5_1.tpr -o rmsf_backbone.xvg -oq bfactor_backbone.pdb -res
+4
+
+xmgrace rmsf_backbone.xvg
+
+#For B factor putty, open the bfactor_backbone.pdb then A > Preser > Bfactor Putty
+
+
+gmx mindist -f md_fit.xtc -s step5_1.tpr -n index2.ndx -od dist_residues.xvg
+1
+13
+
+xmgrace dist_residues.xvg
+
+gmx hbond -f md_fit.xtc -s step5_1.tpr -num hbonds.xvg
+
+#From the previous command, open the VMD and analyse the Hbond
+#Extension > Analysis > Hydrogen bond
+
+gmx make_ndx -f step5_1.gro -n index2.ndx -o index3.ndx
+r694|r695|r702|r718|r719|r720|r721|r738|r742|r751|r753|r764|r765|r766|r767|r768|r769|r770|r771|r772|r773|r776|r820|r830|r831|r832
+4&18
+q
+
+gmx rms -f md_fit.xtc -s step5_1.tpr -n index3.ndx -o rmsd_pocket.xvg -tu ns
+19
+19
+
+gmx sasa -f md_fit.xtc -s step5_1.tpr -n index3.ndx -o area_pocket.xvg -tv volume_pocket.xvg
+18
+
+conda activate gmxMMPBSA
+
+mkdir MMPBSA && cd MMPBSA && mpirun -np 4 gmx_MMPBSA -O -i ../mmpbsa.in -cs../step5_1.tpr -ci ../index2.ndx -cg 1 13 -ct ../md_fit.xtc -cp ../topol.top
+
+#Additional
+gmx analyze -f rmsd_evaluate.xvg
+
+
+
+
+
