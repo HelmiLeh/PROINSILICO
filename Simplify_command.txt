@@ -73,7 +73,7 @@ gmx sasa -f md_fit.xtc -s step5_1.tpr -n index3.ndx -o area_pocket.xvg -tv volum
 18
 
 #Additional
-gmx analyze -f rmsd_evaluate.xvg
+gmx analyze -f rmsd_backbone.xvg
 
 conda activate gmxMMPBSA
 
