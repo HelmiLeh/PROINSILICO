@@ -77,7 +77,11 @@ gmx analyze -f rmsd_backbone.xvg
 
 conda activate gmxMMPBSA
 
+#If you have 16GB and above RAM
 mkdir MMPBSA && cd MMPBSA && mpirun -np 4 gmx_MMPBSA -O -i ../mmpbsa.in -cs ../step5_1.tpr -ci ../index2.ndx -cg 1 13 -ct ../md_fit.xtc -cp ../topol.top
+
+#Alternatively if you have 8GB RAM use this
+mkdir MMPBSA && cd MMPBSA && mpirun -np 2 gmx_MMPBSA -O -i ../mmpbsa.in -cs ../step5_1.tpr -ci ../index2.ndx -cg 1 13 -ct ../md_fit.xtc -cp ../topol.top
 
 
 
