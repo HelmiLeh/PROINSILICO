@@ -66,15 +66,20 @@ gmx rms -f md_fit.xtc -s step5_1.tpr -n index3.ndx -o rmsd_pocket.xvg -tu ns
 19
 19
 
+gmx gyrate -f md_fit.xtc -s step5_1.tpr -n index3.ndx -o gyration_pocket.xvg
+19
+
 gmx sasa -f md_fit.xtc -s step5_1.tpr -n index3.ndx -o area_pocket.xvg -tv volume_pocket.xvg
 18
+
+#Additional
+gmx analyze -f rmsd_evaluate.xvg
 
 conda activate gmxMMPBSA
 
 mkdir MMPBSA && cd MMPBSA && mpirun -np 4 gmx_MMPBSA -O -i ../mmpbsa.in -cs../step5_1.tpr -ci ../index2.ndx -cg 1 13 -ct ../md_fit.xtc -cp ../topol.top
 
-#Additional
-gmx analyze -f rmsd_evaluate.xvg
+
 
 
 
