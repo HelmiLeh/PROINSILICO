@@ -77,7 +77,7 @@ gmx analyze -f rmsd_backbone.xvg
 
 conda activate gmxMMPBSA
 
-mkdir MMPBSA && cd MMPBSA && mpirun -np 4 gmx_MMPBSA -O -i ../mmpbsa.in -cs../step5_1.tpr -ci ../index2.ndx -cg 1 13 -ct ../md_fit.xtc -cp ../topol.top
+mkdir MMPBSA && cd MMPBSA && mpirun -np 4 gmx_MMPBSA -O -i ../mmpbsa.in -cs ../step5_1.tpr -ci ../index2.ndx -cg 1 13 -ct ../md_fit.xtc -cp ../topol.top
 
 
 
